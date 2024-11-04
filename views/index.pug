@@ -2,7 +2,44 @@ doctype html
 link(rel='stylesheet' href='css/style.css')
 
 head
-    title My First Full Stack
+    title 
+        | My FIRST Full Stack
 body
-    h1 Simple TODO APP
-    p TODO: Complete the app!
+    h1 
+        | Only the 
+        i BEST 
+        | todo list
+    div#rightStuff 
+        p#rightText
+            | look familiar?
+        img(src='/img/example1.png')
+    p 
+        | Add your 
+        b WORK
+        |  here!
+
+    div#centerStuff    
+        p#centerText 
+            | My Codiing Experience 
+        img(src="/img/my-coding-experience-so-far.gif")#gif
+
+    //small Motivator
+    p#gitdone
+        strike ...dont expect it all to get done
+        
+    
+
+    form(action= '/', method='POST')
+        p 
+            | TODO: 
+            input#todo(type='text', required, name='todo')
+        input(type='submit', value='Add')
+    h3 TODO LIST :
+
+    ul
+    - for (let i = 0; i < tasks.length; i++)
+             li= tasks[i].id + " " + tasks[i].task
+               form(action='/delete', method="post")
+                    input(type="hidden", name="id" value=tasks[i].id)
+                    input(type="submit", value="Delete")
+    

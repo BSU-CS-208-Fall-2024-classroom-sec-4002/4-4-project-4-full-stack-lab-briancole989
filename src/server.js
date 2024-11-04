@@ -18,24 +18,55 @@ app.set('views', 'views')
 app.set('view engine', 'pug')
 app.use(express.urlencoded({ extended: false }))
 
+let local = { tasks: [] }
+
 app.get('/', function (req, res) {
     //TODO You will need to do a SQL select here
     //TODO You will need to update the code below!
+    local = { tasks: [] }
+
+    db.each('SELECT id, task FROM todo', function (err, row) {
+        if (err) {
+        console.log(err)
+        } else {
+        local.tasks.push({ id: row.id, task: row.task })
+        }
+    }, function (err, numrows) {
+        if (!err) {
+        res.render('index', local)
+        } else {
+        console.log(err)
+        res.render('index')
+    }
+  }) 
+   
     console.log('GET called')
-    res.render('index')
 
 })
+
+app.get('/delete', function (req, res) {
+    res.render('index',local)
+}) 
 
 app.post('/', function (req, res) {
     console.log('adding todo item')
     //TODO You will need to to do a SQL Insert here
+    const stmt = db.prepare('INSERT INTO todo (task) VALUES (?)')
+    stmt.run(req.body.todo)
+    stmt.finalize()
+
+    res.redirect("back")
 
 })
 
 app.post('/delete', function (req, res) {
     console.log('deleting todo item')
     //TODO you will need to delete here
+    const stmt = db.prepare('DELETE FROM todo where id = (?)')
+    stmt.run(req.body.id)
+    stmt.finalize()
 
+    res.redirect("back")
 })
 
 // Start the web server
