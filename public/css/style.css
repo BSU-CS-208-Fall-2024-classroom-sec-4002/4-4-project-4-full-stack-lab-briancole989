@@ -8,7 +8,7 @@ p{
     
 }
 #gitdone{
-    text-indent:250px;
+    text-indent:225px;
     font-size: 11px;
 }
 
@@ -31,7 +31,7 @@ img {
 }
 #centerStuff {
     position: relative;
-    right:35px;
+    right:40px;
     bottom: 65px;
     float: right;
     vertical-align: text-top;
@@ -41,6 +41,8 @@ img {
     font-family:fantasy;
 }
 #gif {
+    position: relative;
+    left:53px;
     border: 1px solid #621298;
     width: 300px;
 }
